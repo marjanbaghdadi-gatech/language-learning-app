@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Pashmak's Persian Playground · فارسی برای بچه‌ها</title>
+
+<!-- Fonts: Fredoka (UI) + Vazirmatn (Persian script) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Vazirmatn:wght@500;700;900&display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="bg-critters" aria-hidden="true">
+  <div class="critter-bubble" style="left:6%;  top:8%;  --bubble:7rem;   --r:-12deg; --dur:34s; --delay:-4s;"><span>🦄</span></div>
+  <div class="critter-bubble" style="left:76%; top:4%;  --bubble:6.2rem; --r:10deg;  --dur:27s; --delay:-14s;"><span>🦕</span></div>
+  <div class="critter-bubble" style="left:-2%; top:26%; --bubble:6.6rem; --r:8deg;   --dur:38s; --delay:-9s;"><span>🦖</span></div>
+  <div class="critter-bubble" style="left:82%; top:34%; --bubble:7.2rem; --r:-8deg;  --dur:31s; --delay:-20s;"><span>🦄</span></div>
+  <div class="critter-bubble" style="left:8%;  top:50%; --bubble:6.6rem; --r:-6deg;  --dur:36s; --delay:-25s;"><span>🦕</span></div>
+  <div class="critter-bubble" style="left:76%; top:58%; --bubble:6.2rem; --r:14deg;  --dur:29s; --delay:-11s;"><span>🦄</span></div>
+  <div class="critter-bubble" style="left:0%;  top:74%; --bubble:6.6rem; --r:6deg;   --dur:32s; --delay:-16s;"><span>🦖</span></div>
+  <div class="critter-bubble" style="left:72%; top:82%; --bubble:7.2rem; --r:-10deg; --dur:40s; --delay:-29s;"><span>🦕</span></div>
+</div>
+
+<header>
+  <button class="home-btn" id="btnHome" aria-label="Home">🏠</button>
+  <h1 class="app-title">Pashmak's Persian Playground</h1>
+  <button class="star-pill" id="starPill" aria-label="My stickers">⭐ <span id="starCount">0</span></button>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section class="screen active" id="scrHome">
+    <div class="mascot-row">
+      <div class="mascot" id="mascotHome">🐈</div>
+      <div class="bubble">
+        <div class="fa-line fa">سلام! بیا بازی کنیم!</div>
+        <div class="en-line">Salâm! I'm Pashmak the cat. Let's play in Persian!</div>
+      </div>
+    </div>
+    <div class="level-tabs" id="levelTabs"></div>
+    <div class="mode-row" id="modeRow">
+      <button class="mode-btn" id="btnLearnAll">📖 Learn</button>
+      <button class="mode-btn play" id="btnPlayAll">🎮 Play a game</button>
+    </div>
+    <p class="subtitle" id="subtitle">Tap a world to explore · هر کارت را لمس کن تا بشنوی</p>
+    <div class="tiles" id="tiles"></div>
+    <div class="under-construction" id="underConstruction">
+      <div class="uc-emoji">🚧</div>
+      <p class="uc-title fa" id="ucTitle"></p>
+      <p class="uc-sub">This level is under construction — check back soon!</p>
+    </div>
+  </section>
+
+  <!-- LEARN -->
+  <section class="screen" id="scrLearn">
+    <div class="learn-wrap">
+      <div class="cat-label" id="learnCatLabel"></div>
+      <div class="arch-card" id="learnCard" role="button" aria-label="Tap to hear the word">
+        <div class="tap-hint">👆🔊</div>
+        <div class="big-emoji" id="lcEmoji"></div>
+        <div class="word-fa fa" id="lcFa"></div>
+        <div class="word-tl" id="lcTl"></div>
+        <div class="word-en" id="lcEn"></div>
+      </div>
+      <div class="letter-forms" id="letterForms">
+        <div class="lf-item"><span class="lf-glyph fa" id="lfIsolated"></span><span class="lf-label">Isolated</span></div>
+        <div class="lf-item"><span class="lf-glyph fa" id="lfInitial"></span><span class="lf-label">Initial</span></div>
+        <div class="lf-item"><span class="lf-glyph fa" id="lfMedial"></span><span class="lf-label">Medial</span></div>
+        <div class="lf-item"><span class="lf-glyph fa" id="lfFinal"></span><span class="lf-label">Final</span></div>
+      </div>
+      <div class="nav-row">
+        <button class="nav-btn" id="btnPrev" aria-label="Previous word">⬅️</button>
+        <button class="nav-btn big-speak" id="btnSpeak" aria-label="Hear the word">🔊</button>
+        <button class="nav-btn" id="btnNext" aria-label="Next word">➡️</button>
+      </div>
+      <div class="dots" id="dots"></div>
+      <button class="mode-btn play" id="btnLearnToPlay" style="max-width:260px">🎮 Now let's play!</button>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section class="screen" id="scrGame">
+    <div class="game-wrap">
+      <div class="cat-label" id="gameCatLabel"></div>
+      <div class="prompt-card" id="promptCard" role="button" aria-label="Tap to hear the word again">
+        <div class="p-label" id="pLabel">Find… · پیدا کن</div>
+        <div class="p-fa fa" id="pFa"></div>
+        <div class="p-tl" id="pTl"></div>
+      </div>
+      <div class="choices" id="choices"></div>
+      <div class="bubble-play" id="bubblePlay"></div>
+      <div class="memory-grid" id="memoryGrid"></div>
+      <div class="game-msg" id="gameMsg"></div>
+    </div>
+  </section>
+
+  <!-- STICKERS -->
+  <section class="screen" id="scrStickers">
+    <div class="mascot-row">
+      <div class="mascot">🐈</div>
+      <div class="bubble">
+        <div class="fa-line fa">آفرین!</div>
+        <div class="en-line">Âfarin — well done! Win stars in games to collect Persian stickers.</div>
+      </div>
+    </div>
+    <div class="sticker-grid" id="stickerGrid"></div>
+    <p class="sticker-note" id="stickerNote"></p>
+  </section>
+</main>
+
+<div class="confetti" id="confetti"></div>
+
+<div class="reward" id="reward">
+  <div class="reward-card">
+    <div class="r-emoji" id="rEmoji">🌟</div>
+    <h2 id="rTitle">New sticker!</h2>
+    <p id="rText"></p>
+    <button id="rBtn">Yay! · آفرین</button>
+  </div>
+</div>
+
+
+<!-- Content first (defines CATS / STICKERS), then app logic -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
