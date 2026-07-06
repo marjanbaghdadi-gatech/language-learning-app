@@ -168,7 +168,7 @@ function buildLevelTabs(){
     const ready=catsAtLevel(lvl.key).length>0;
     const b=document.createElement('button');
     b.className='level-tab'+(lvl.key===currentLevel?' active':'')+(ready?'':' locked');
-    b.innerHTML=`<span class="lt-emoji">${lvl.emoji}</span><span>${lvl.name}</span>`;
+    b.innerHTML=`<span class="lt-badge">${lvl.emoji}</span><span class="lt-label">${lvl.name}</span>`;
     b.onclick=()=>selectLevel(lvl.key);
     box.appendChild(b);
   });

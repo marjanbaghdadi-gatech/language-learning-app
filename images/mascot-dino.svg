@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">
+  <!-- tail -->
+  <path d="M150 150 Q195 150 205 128 Q188 138 168 132 Q182 122 184 106 Q162 118 148 138 Z" fill="#3AA0B0"/>
+
+  <!-- back legs -->
+  <ellipse cx="88"  cy="188" rx="22" ry="16" fill="#2E7A88"/>
+  <ellipse cx="146" cy="188" rx="22" ry="16" fill="#2E7A88"/>
+  <ellipse cx="88"  cy="182" rx="16" ry="11" fill="#5EC8D8"/>
+  <ellipse cx="146" cy="182" rx="16" ry="11" fill="#5EC8D8"/>
+
+  <!-- body -->
+  <ellipse cx="118" cy="150" rx="58" ry="50" fill="#4CB3C2"/>
+  <ellipse cx="112" cy="158" rx="38" ry="34" fill="#F5EFE0"/>
+
+  <!-- arms -->
+  <ellipse cx="66"  cy="150" rx="14" ry="18" fill="#4CB3C2" transform="rotate(18 66 150)"/>
+  <ellipse cx="168" cy="150" rx="14" ry="18" fill="#4CB3C2" transform="rotate(-18 168 150)"/>
+
+  <!-- back spikes -->
+  <path d="M96 104 L104 84 L112 104 Z"  fill="#8FCB74"/>
+  <path d="M114 100 L122 78 L130 100 Z" fill="#8FCB74"/>
+  <path d="M132 104 L140 86 L148 104 Z" fill="#8FCB74"/>
+
+  <!-- head -->
+  <circle cx="118" cy="96" r="62" fill="#5EC8D8"/>
+
+  <!-- muzzle -->
+  <ellipse cx="118" cy="122" rx="34" ry="24" fill="#8FCB74"/>
+
+  <!-- cheeks -->
+  <ellipse cx="76"  cy="108" rx="10" ry="7" fill="#FF9E9E" opacity=".55"/>
+  <ellipse cx="160" cy="108" rx="10" ry="7" fill="#FF9E9E" opacity=".55"/>
+
+  <!-- eyes -->
+  <circle cx="92"  cy="88" r="20" fill="#FFFDF7"/>
+  <circle cx="146" cy="88" r="20" fill="#FFFDF7"/>
+  <circle cx="97"  cy="92" r="11" fill="#2E2A25"/>
+  <circle cx="151" cy="92" r="11" fill="#2E2A25"/>
+  <circle cx="93"  cy="87" r="3.4" fill="#FFFDF7"/>
+  <circle cx="147" cy="87" r="3.4" fill="#FFFDF7"/>
+
+  <!-- nostrils -->
+  <ellipse cx="108" cy="120" rx="2.4" ry="3.2" fill="#2E2A25"/>
+  <ellipse cx="128" cy="120" rx="2.4" ry="3.2" fill="#2E2A25"/>
+
+  <!-- smile -->
+  <path d="M100 130 Q118 144 136 130" stroke="#B8447D" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- head spikelets -->
+  <path d="M78 44 L84 28 L90 44 Z"   fill="#8FCB74"/>
+  <path d="M104 32 L110 14 L116 32 Z" fill="#8FCB74"/>
+  <path d="M130 36 L136 20 L142 36 Z" fill="#8FCB74"/>
+</svg>

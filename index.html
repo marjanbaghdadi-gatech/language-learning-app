@@ -36,23 +36,27 @@
   <!-- HOME -->
   <section class="screen active" id="scrHome">
     <div class="mascot-row">
-      <div class="mascot" id="mascotHome">🐈</div>
+      <img class="mascot" id="mascotHome" src="images/mascot-dino.svg" alt="Dino mascot">
       <div class="bubble">
-        <div class="fa-line fa">سلام! بیا بازی کنیم!</div>
-        <div class="en-line">Salâm! I'm Pashmak the cat. Let's play in Persian!</div>
+        <div class="fa-line fa">بیا بازی کنیم!</div>
+        <div class="en-line">Let's play!</div>
       </div>
     </div>
-    <div class="level-tabs" id="levelTabs"></div>
-    <div class="mode-row" id="modeRow">
-      <button class="mode-btn" id="btnLearnAll">📖 Learn</button>
-      <button class="mode-btn play" id="btnPlayAll">🎮 Play a game</button>
-    </div>
-    <p class="subtitle" id="subtitle">Tap a world to explore · هر کارت را لمس کن تا بشنوی</p>
-    <div class="tiles" id="tiles"></div>
-    <div class="under-construction" id="underConstruction">
-      <div class="uc-emoji">🚧</div>
-      <p class="uc-title fa" id="ucTitle"></p>
-      <p class="uc-sub">This level is under construction — check back soon!</p>
+    <div class="home-body">
+      <div class="level-select">
+        <div class="level-tabs" id="levelTabs"></div>
+      </div>
+      <div class="mode-row" id="modeRow">
+        <button class="mode-btn" id="btnLearnAll">📖 Learn</button>
+        <button class="mode-btn play" id="btnPlayAll">🎮 Play a game</button>
+      </div>
+      <p class="subtitle" id="subtitle">Tap a world to explore · هر کارت را لمس کن تا بشنوی</p>
+      <div class="tiles" id="tiles"></div>
+      <div class="under-construction" id="underConstruction">
+        <div class="uc-emoji">🚧</div>
+        <p class="uc-title fa" id="ucTitle"></p>
+        <p class="uc-sub">This level is under construction — check back soon!</p>
+      </div>
     </div>
   </section>
 
@@ -102,14 +106,16 @@
   <!-- STICKERS -->
   <section class="screen" id="scrStickers">
     <div class="mascot-row">
-      <div class="mascot">🐈</div>
+      <img class="mascot" src="images/mascot-dino.svg" alt="Dino mascot">
       <div class="bubble">
         <div class="fa-line fa">آفرین!</div>
         <div class="en-line">Âfarin — well done! Win stars in games to collect Persian stickers.</div>
       </div>
     </div>
-    <div class="sticker-grid" id="stickerGrid"></div>
-    <p class="sticker-note" id="stickerNote"></p>
+    <div class="stickers-body">
+      <div class="sticker-grid" id="stickerGrid"></div>
+      <p class="sticker-note" id="stickerNote"></p>
+    </div>
   </section>
 </main>
 
