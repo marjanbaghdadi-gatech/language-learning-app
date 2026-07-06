@@ -1,5 +1,5 @@
 /* ============================================================
-   data.js — Content layer for Pashmak's Persian Playground
+   data.js — Content layer for LILLEO's Games
    ------------------------------------------------------------
    All vocabulary, categories, and sticker rewards live here.
    To add words or categories, edit ONLY this file — no logic
@@ -297,7 +297,7 @@ const CATS = {
 };
 
 const STICKERS = [
-  {emoji:'🐱', label:'Pashmak'},
+  {emoji:'🐱', label:'LILLEO'},
   {emoji:'🌷', label:'Tulip'},
   {emoji:'🫖', label:'Tea pot'},
   {emoji:'🍉', label:'Watermelon'},

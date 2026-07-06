@@ -1,5 +1,5 @@
 /* ============================================================
-   app.js — Application logic for Pashmak's Persian Playground
+   app.js — Application logic for LILLEO's Games
    ------------------------------------------------------------
    Depends on: js/data.js (CATS, STICKERS, STARS_PER_STICKER)
    Sections: state · audio (TTS + chimes) · helpers ·
