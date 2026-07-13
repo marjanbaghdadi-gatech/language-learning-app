@@ -19,10 +19,12 @@
 /* ================= LEVELS ================= */
 /* A level is "ready" (has real content) whenever at least one category
    in CATS below is tagged with that level key — checked dynamically in
-   app.js, so adding a category to a level is enough to light it up. */
+   app.js, so adding a category to a level is enough to light it up.
+   Set ready:false to force "under construction" even once categories
+   exist (e.g. while recordings are still in progress). */
 const LEVELS = [
   { key:'beginner',     name:'Beginner',     fa:'مبتدی',    emoji:'🌱' },
-  { key:'intermediate', name:'Intermediate', fa:'متوسط',    emoji:'🌿' },
+  { key:'intermediate', name:'Intermediate', fa:'متوسط',    emoji:'🌿', ready:false },
   { key:'advanced',     name:'Advanced',     fa:'پیشرفته',  emoji:'🌳' }
 ];
 

@@ -152,6 +152,10 @@ function addStar(){
 function catsAtLevel(level){
   return Object.entries(CATS).filter(([,c])=>c.level===level);
 }
+function isLevelReady(key){
+  const lvl=LEVELS.find(l=>l.key===key);
+  return lvl.ready!==false && catsAtLevel(key).length>0;
+}
 function buildTiles(){
   const box=$('tiles'); box.innerHTML='';
   catsAtLevel(currentLevel).forEach(([key,c])=>{
@@ -167,7 +171,7 @@ function buildTiles(){
 function buildLevelTabs(){
   const box=$('levelTabs'); box.innerHTML='';
   LEVELS.forEach(lvl=>{
-    const ready=catsAtLevel(lvl.key).length>0;
+    const ready=isLevelReady(lvl.key);
     const b=document.createElement('button');
     b.className='level-tab'+(lvl.key===currentLevel?' active':'')+(ready?'':' locked');
     b.innerHTML=`<span class="lt-badge">${lvl.emoji}</span><span class="lt-label">${lvl.name}</span>`;
@@ -184,7 +188,7 @@ function selectLevel(key){
 }
 function updateHomeVisibility(){
   const lvl=LEVELS.find(l=>l.key===currentLevel);
-  const ready=catsAtLevel(currentLevel).length>0;
+  const ready=isLevelReady(currentLevel);
   const showCats = ready && categoriesOpen;
   $('tiles').style.display = showCats ? '' : 'none';
   $('subtitle').style.display = showCats ? '' : 'none';
