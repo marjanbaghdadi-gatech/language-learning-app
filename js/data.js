@@ -243,7 +243,10 @@ const CATS = {
       {emoji:'🥤', fa:'نوشیدن',      tl:'nushidan',    en:'drink', image:'images/actions/drink.jpg', audio:'audio/actions/drink.m4a'},
       {emoji:'🎲', fa:'بازی کردن',   tl:'bâzi kardan', en:'play',  image:'images/actions/play.jpg', audio:'audio/actions/play.m4a'},
       {emoji:'📖', fa:'خواندن',      tl:'khândan',     en:'read',  image:'images/actions/read.jpg', audio:'audio/actions/read.m4a'},
-      {emoji:'🚶', fa:'راه رفتن',    tl:'râh raftan',  en:'walk',  image:'images/actions/walk.jpg', audio:'audio/actions/walk.m4a'}
+      {emoji:'🚶', fa:'راه رفتن',    tl:'râh raftan',  en:'walk',  image:'images/actions/walk.jpg', audio:'audio/actions/walk.m4a'},
+      {emoji:'🧹', fa:'تمیز کردن',   tl:'tamiz kardan', en:'clean', image:'images/actions/clean.jpg', audio:'audio/actions/clean.m4a'},
+      {emoji:'🪥', fa:'مسواک زدن',   tl:'mesvâk zadan', en:'brush teeth', image:'images/actions/brush.jpg', audio:'audio/actions/brush.m4a'},
+      {emoji:'🧼', fa:'دست شستن',    tl:'dast shostan', en:'wash hands', image:'images/actions/wash-hands.jpg', audio:'audio/actions/wash-hands.m4a'}
     ]},
   emotions:{ name:'Emotions', fa:'احساسات', tl:'ehsâsât', emoji:'😄', level:'beginner', tileClass:'t-emotions',
     items:[
