@@ -14,8 +14,9 @@ let gameCat = 'animals', answer = null, locked = false;
 let gameMode = 'match';
 let gameModeRounds = 0;
 const ROUNDS_PER_GAME_MODE = 3;
-const GAME_MODES = ['match','bubble','memory'];
+const GAME_MODES = ['match','bubble','memory','pronounce'];
 let memFlipped = [], memBusy = false, memMatchedPairs = 0, memTotalPairs = 0;
+let mediaRecorder = null, micChunks = [], micBlobUrl = null, micStream = null, micState = 'idle', micAutoStopTimer = null;
 let currentLevel = 'beginner';
 let categoriesOpen = false;
 
@@ -109,6 +110,7 @@ function show(id){
   $(id).classList.add('active');
   stopAudio();
   if(window.speechSynthesis) speechSynthesis.cancel();
+  stopMicIfActive();
 }
 function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
@@ -327,6 +329,9 @@ function nextRound(){
   $('choices').style.display='none';
   $('bubblePlay').classList.remove('show'); $('bubblePlay').innerHTML='';
   $('memoryGrid').classList.remove('show'); $('memoryGrid').innerHTML='';
+  $('pronouncePlay').classList.remove('show');
+  stopMicIfActive();
+  resetMicUI();
   const pool=shuffle(c.items);
   if (gameMode==='memory'){
     const pairCount = c.level==='beginner' ? 2 : 3;
@@ -342,16 +347,132 @@ function nextRound(){
     return;
   }
   const opts=shuffle(pool.slice(0,3));
-  $('pLabel').textContent='Find… · پیدا کن';
   answer=pool[0];
   $('promptCard').classList.toggle('sentence-mode', !!c.isSentence);
   $('pFa').textContent=answer.fa;
   $('pTl').textContent=answer.tl+' · '+answer.en;
   $('gameMsg').textContent='';
-  if (gameMode==='match'){ $('choices').style.display=''; renderChoices(opts); }
-  else { $('bubblePlay').classList.add('show'); renderBubbles(opts); }
+  if (gameMode==='pronounce'){
+    $('pLabel').textContent='Say it! · تکرار کن';
+    $('pronouncePlay').classList.add('show');
+  } else {
+    $('pLabel').textContent='Find… · پیدا کن';
+    if (gameMode==='match'){ $('choices').style.display=''; renderChoices(opts); }
+    else { $('bubblePlay').classList.add('show'); renderBubbles(opts); }
+  }
   setTimeout(()=>speak(answer),400);
 }
+
+/* ---- pronunciation (record & compare) ---- */
+function stopMicIfActive(){
+  clearTimeout(micAutoStopTimer);
+  if (mediaRecorder){
+    if (mediaRecorder.state==='recording'){
+      mediaRecorder.onstop=null;
+      try{ mediaRecorder.stop(); }catch(e){}
+    }
+    mediaRecorder=null;
+  }
+  if (micStream){ micStream.getTracks().forEach(t=>t.stop()); micStream=null; }
+  micState='idle';
+}
+function micStarBurst(){
+  const host=$('micMascotWrap');
+  const bits=['⭐','🌟','✨'];
+  const n=8;
+  for(let i=0;i<n;i++){
+    const s=document.createElement('span');
+    s.className='mic-spark';
+    s.textContent=bits[Math.floor(Math.random()*bits.length)];
+    const angle=(Math.PI*2*i/n)+(Math.random()*0.5-0.25);
+    const dist=55+Math.random()*35;
+    s.style.setProperty('--dx', Math.cos(angle)*dist+'px');
+    s.style.setProperty('--dy', Math.sin(angle)*dist+'px');
+    s.style.setProperty('--rot', (Math.random()*70-35)+'deg');
+    s.style.animationDelay=(Math.random()*0.12)+'s';
+    host.appendChild(s);
+    setTimeout(()=>s.remove(),1000);
+  }
+}
+function playMyRecording(){
+  if (!micBlobUrl) return;
+  const celebrate=()=>{ dingYes(); micStarBurst(); };
+  const a=new Audio(micBlobUrl);
+  a.addEventListener('ended', celebrate, {once:true});
+  a.play().catch(celebrate);
+}
+function resetMicUI(){
+  micState='idle';
+  $('micBtn').classList.remove('recording');
+  $('micBtn').textContent='Tap to record';
+  $('micEmojiBadge').textContent='🎤';
+  $('micEmojiBadge').classList.remove('pulse');
+  $('micStatus').textContent='Tap the mic and say it! · دکمه را بزن و بگو';
+  $('micActions').classList.remove('show');
+  $('btnMicRetry').style.display='';
+  if (micBlobUrl){ URL.revokeObjectURL(micBlobUrl); micBlobUrl=null; }
+  micChunks=[];
+}
+async function startMicRecording(){
+  if (micState==='recording') return;
+  if (!navigator.mediaDevices || !window.MediaRecorder){
+    $('micStatus').textContent="Recording isn't supported on this browser — tap Next to continue.";
+    $('micActions').classList.add('show');
+    $('btnMicRetry').style.display='none';
+    return;
+  }
+  try{
+    micStream = await navigator.mediaDevices.getUserMedia({audio:true});
+  }catch(e){
+    $('micStatus').textContent='Mic permission needed · اجازه میکروفون — tap Next to continue.';
+    $('micActions').classList.add('show');
+    $('btnMicRetry').style.display='none';
+    return;
+  }
+  micChunks=[];
+  mediaRecorder = new MediaRecorder(micStream);
+  mediaRecorder.ondataavailable = e=>{ if(e.data.size>0) micChunks.push(e.data); };
+  mediaRecorder.onstop = ()=>{
+    if (micStream){ micStream.getTracks().forEach(t=>t.stop()); micStream=null; }
+    if (micState!=='recording') return;
+    const blob = new Blob(micChunks, {type:'audio/webm'});
+    micBlobUrl = URL.createObjectURL(blob);
+    micState='recorded';
+    $('micBtn').classList.remove('recording');
+    $('micBtn').textContent='Tap to hear it again';
+    $('micEmojiBadge').textContent='🔊';
+    $('micEmojiBadge').classList.remove('pulse');
+    $('micStatus').textContent='Listen to yourself! Tap 🎤 to hear it again · صدای خودت';
+    $('micActions').classList.add('show');
+    $('btnMicRetry').style.display='';
+    playMyRecording();
+  };
+  mediaRecorder.start();
+  micState='recording';
+  $('micBtn').classList.add('recording');
+  $('micBtn').textContent='Recording… tap to stop';
+  $('micEmojiBadge').textContent='⏺️';
+  $('micEmojiBadge').classList.add('pulse');
+  $('micStatus').textContent='Recording… tap to stop · صدا ضبط می‌شود';
+  clearTimeout(micAutoStopTimer);
+  micAutoStopTimer=setTimeout(()=>stopMicRecording(),3000);
+}
+function stopMicRecording(){
+  clearTimeout(micAutoStopTimer);
+  if (mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop();
+}
+$('micBtn').onclick=()=>{
+  if (micState==='idle') startMicRecording();
+  else if (micState==='recording') stopMicRecording();
+  else playMyRecording();
+};
+$('btnMicRetry').onclick=()=>resetMicUI();
+$('btnMicNext').onclick=()=>{
+  dingYes(); confettiBurst();
+  $('gameMsg').textContent='Âfarin! آفرین 🎉';
+  addStar();
+  setTimeout(()=>advanceGameProgress(false),1200);
+};
 function nextGameMode(m){ return GAME_MODES[(GAME_MODES.indexOf(m)+1)%GAME_MODES.length]; }
 function advanceGameProgress(forceSwitch){
   gameCat=pickNextCategory(gameCat);

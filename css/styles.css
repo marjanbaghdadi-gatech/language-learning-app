@@ -384,6 +384,43 @@
   .mem-card.mismatch{animation:shake .4s ease;background-color:#FFDCE1;border-color:var(--block-edge);box-shadow:0 5px 0 var(--pom-dark)}
   @keyframes popIn{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
 
+  /* ---------- pronunciation game ---------- */
+  .pronounce-play{display:none;flex-direction:column;align-items:center;gap:14px;width:100%;padding:12px 0}
+  .pronounce-play.show{display:flex}
+  .mic-pill-wrap{position:relative;width:100%;max-width:280px;margin-top:44px}
+  .mic-mascot-wrap{
+    position:absolute;top:-44px;left:50%;transform:translateX(-50%);
+    width:100px;height:100px;filter:drop-shadow(0 4px 0 rgba(46,42,37,.18));
+    pointer-events:none;
+  }
+  .mic-mascot-img{width:100%;height:100%;display:block}
+  .mic-emoji-badge{
+    position:absolute;left:89.1%;top:31.8%;font-size:1.5rem;line-height:1;
+    transform:translate(-50%,-50%) rotate(-12deg);pointer-events:none;
+  }
+  .mic-emoji-badge.pulse{animation:micPulse 1s ease-in-out infinite}
+  .mode-btn.mic-pill{
+    width:100%;padding-top:52px;background-color:#1A1A1A;color:#fff;
+    border-color:var(--block-edge);box-shadow:0 6px 0 #000000;
+  }
+  .mode-btn.mic-pill:active{box-shadow:0 0 0 #000000}
+  .mode-btn.mic-pill.recording{background-color:var(--berry);box-shadow:0 6px 0 var(--berry-dark)}
+  .mode-btn.mic-pill.recording:active{box-shadow:0 0 0 var(--berry-dark)}
+  @keyframes micPulse{0%,100%{transform:translate(-50%,-50%) rotate(-12deg) scale(1)}50%{transform:translate(-50%,-50%) rotate(-12deg) scale(1.25)}}
+  .mic-spark{
+    position:absolute;left:50%;top:50%;font-size:1.5rem;line-height:1;
+    pointer-events:none;will-change:transform,opacity;
+    animation:sparkBurst .9s ease-out forwards;
+  }
+  @keyframes sparkBurst{
+    0%{transform:translate(-50%,-50%) scale(.4) rotate(0deg);opacity:1}
+    100%{transform:translate(calc(-50% + var(--dx,40px)), calc(-50% + var(--dy,-40px))) scale(1.25) rotate(var(--rot,20deg));opacity:0}
+  }
+  .mic-status{font-weight:700;text-align:center;font-size:1rem;color:var(--plum);min-height:1.4rem}
+  .mic-actions{display:none;gap:14px;width:100%}
+  .mic-actions.show{display:flex}
+  .mic-actions .mode-btn{flex:1;padding:14px}
+
   /* ---------- stickers ---------- */
   .sticker-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%;margin-top:6px}
   .sticker{
